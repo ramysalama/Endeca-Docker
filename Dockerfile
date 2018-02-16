@@ -1,13 +1,7 @@
 FROM oraclelinux:7
 
-#Create Endeca user & group
-RUN /usr/sbin/groupadd endeca_dev && \
- /usr/sbin/useradd -G endeca_dev endeca && \
- echo endeca:endeca | chpasswd
-
-#create SDE folder & set ownership to Endeca user
-RUN mkdir /sde && \
- chown -R endeca:endeca_dev /sde
+#create SDE folder
+#RUN mkdir /sde 
 
 #Install unzip
 RUN yum -y install unzip wget
@@ -36,8 +30,6 @@ RUN unzip /sde/endeca_installers/V78211-01.zip -d /sde/endeca_installers && \
  	chmod -R 755 /sde/endeca_installers/cd && \
  	chmod -R 755 /sde/endeca_installers/OCcas11.2.0-Linux64.bin
 
-#Switch to Endeca user
-USER endeca
 
 #Installation
 #Installing MDEX
@@ -72,8 +64,7 @@ RUN echo 'source /sde/endeca/MDEX/6.5.2/mdex_setup_sh.ini' >>~/.bash_profile && 
  	echo 'export ENDECA_TOOLS_CONF=/sde/endeca/ToolsAndFrameworks/11.2.0/server/wor kspace' >>~/.bash_profile && \
  	echo 'export CAS_ROOT=/sde/endeca/CAS/11.2.0' >>~/.bash_profile
 
-#Fix permissions & elete installers
-USER root
+#Fix permissions & delete installers
 WORKDIR /sde
 RUN chmod -R 755 /sde/endeca && \
 	rm -rf /sde/endeca_installers
@@ -83,3 +74,5 @@ VOLUME /sde
 
 #Network config
 EXPOSE 8006 8500 8506
+
+CMD ["/bin/sh","/sde/start-endeca.sh"]
