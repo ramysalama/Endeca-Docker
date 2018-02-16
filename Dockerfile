@@ -17,10 +17,10 @@ COPY . /sde/endeca_installers
 WORKDIR /sde/endeca_installers
 
 #Download installers
-RUN wget https://www.dropbox.com/s/gv428k6gcx9krhj/V78211-01.zip &&\
-	wget https://www.dropbox.com/s/a5ite2xo4o6kvpe/V78226-01.zip &&\
-	wget https://www.dropbox.com/s/gm0nkctzhb7yf6a/V78208-01.zip &&\
-	wget https://www.dropbox.com/s/63nvng5r3x33hr9/V78204-01.zip
+RUN wget --progress=bar:force https://www.dropbox.com/s/gv428k6gcx9krhj/V78211-01.zip &&\
+	wget --progress=bar:force https://www.dropbox.com/s/a5ite2xo4o6kvpe/V78226-01.zip &&\
+	wget --progress=bar:force https://www.dropbox.com/s/gm0nkctzhb7yf6a/V78208-01.zip &&\
+	wget --progress=bar:force https://www.dropbox.com/s/63nvng5r3x33hr9/V78204-01.zip
 
 #Copy Copying start/stop scripts
 COPY config/start-endeca.sh /sde
