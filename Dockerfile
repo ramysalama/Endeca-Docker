@@ -60,9 +60,9 @@ COPY config/webstudio.properties /sde/endeca/ToolsAndFrameworks/11.2.0/server/wo
 
 #CAS
 WORKDIR /sde/endeca_installers/
-RUN ./OCcas11.2.0-Linux64.bin -i silent -f /sde/endeca_installers/config/cas_response.properties && \
-	export CAS_ROOT=/sde/endeca/CAS/11.2.0 && \
- 	sed -i 's/^\(com.endeca.casconsole.cas.server=\).*/\1localhost/' /sde/endeca/ToolsAndFrameworks/11.2.0/server/workspace/conf/casconsole.properties
+RUN ./OCcas11.2.0-Linux64.bin -i silent -f /sde/endeca_installers/config/cas_response.properties
+RUN	export CAS_ROOT=/sde/endeca/CAS/11.2.0
+RUN 	sed -i 's/^\(com.endeca.casconsole.cas.server=\).*/\1localhost/' /sde/endeca/ToolsAndFrameworks/11.2.0/server/workspace/conf/casconsole.properties
 COPY config/commandline.properties /sde/endeca/CAS/workspace/conf
 
 #Updating bash profile
